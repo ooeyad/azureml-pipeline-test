@@ -8,7 +8,11 @@ jobs:
       fetched_data: 
         mode: upload
     code: data
+<<<<<<< HEAD
     environment: azureml:TestNew@latest
+=======
+    environment: azureml:ModelTraining@latest
+>>>>>>> ccbbcf07921853843ca7a299452b4d6707df944e
     compute: azureml:GPU-05559-01
     command: >-
       python read_data.py 
@@ -22,7 +26,11 @@ jobs:
       transformed_data: 
         mode: upload
     code: prepare_data
+<<<<<<< HEAD
     environment: azureml:TestNew@latest
+=======
+    environment: azureml:ModelTraining@latest
+>>>>>>> ccbbcf07921853843ca7a299452b4d6707df944e
     compute: azureml:GPU-05559-01
     command: >-
       python preprocessing.py 
@@ -37,7 +45,11 @@ jobs:
     outputs:
       status_output:
         mode: upload
+<<<<<<< HEAD
     environment: azureml:TestNew@latest
+=======
+    environment: azureml:ModelTraining@latest
+>>>>>>> ccbbcf07921853843ca7a299452b4d6707df944e
     compute: azureml:GPU-05559-01
     command: >- 
       python huggingface.py 
@@ -49,7 +61,11 @@ jobs:
     code: elastic
     inputs:
       status_input: ${{parent.jobs.huggingface.outputs.status_output}}
+<<<<<<< HEAD
     environment: azureml:ElandRequriments@latest
+=======
+    environment: azureml:ElandRequirments@latest
+>>>>>>> ccbbcf07921853843ca7a299452b4d6707df944e
     compute: azureml:GPU-05559-01
     command: >-
       python eland_import_hub_model.py
@@ -60,3 +76,7 @@ jobs:
       --es-api-key NzE1N0RJVUJXa2pPVFJ6bFFZeUg6dlJrUHNmLVJTX0tmdXMwczdqSHprUQ==
       --clear-previous
       --start
+<<<<<<< HEAD
+=======
+      
+>>>>>>> ccbbcf07921853843ca7a299452b4d6707df944e

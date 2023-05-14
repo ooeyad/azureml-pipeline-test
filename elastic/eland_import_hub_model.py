@@ -34,7 +34,11 @@ from elastic_transport.client_utils import DEFAULT
 from elasticsearch import AuthenticationException, Elasticsearch
 import requests as req
 from eland.ml.pytorch.transformers import SUPPORTED_TASK_TYPES
+<<<<<<< HEAD
 
+=======
+from requests.auth import HTTPBasicAuth
+>>>>>>> ccbbcf07921853843ca7a299452b4d6707df944e
 
 MODEL_HUB_URL = "https://huggingface.co"
 
@@ -223,6 +227,7 @@ with tempfile.TemporaryDirectory() as tmp_dir:
   model_exists = es.options(ignore_status=404).ml.get_trained_models(model_id=ptm.model_id).meta.status == 200
 
   if model_exists:
+<<<<<<< HEAD
       if args.clear_previous:
           logger.info(f"Stopping deployment for model with id '{ptm.model_id}'")
           ptm.stop()
@@ -230,6 +235,30 @@ with tempfile.TemporaryDirectory() as tmp_dir:
           logger.info(f"Deleting model with id '{ptm.model_id}'")
           ptm.delete()
       else:
+=======
+     if args.clear_previous:
+         logger.info(f"Stopping deployment for model with id '{ptm.model_id}'")
+#          ptm.stop()
+#          POST _ml/trained_models/<model_id>/deployment/_stop
+         url = "https://485ce3931f1e4b6393f3a256d96ba75e.eastus.azure.elastic-cloud.com:9243/_ml/trained_models/yashveer11__final_model_category/deployment/_stop?force=true"
+         auth = HTTPBasicAuth('apikey', 'ApiKey NzE1N0RJVUJXa2pPVFJ6bFFZeUg6dlJrUHNmLVJTX0tmdXMwczdqSHprUQ==')
+         response = req.request("POST", url, headers={'Host': '485ce3931f1e4b6393f3a256d96ba75e.eastus.azure.elastic-cloud.com:9243',
+                                                                   'Content-Type': 'application/json',
+                                                                   "Authorization": "ApiKey NzE1N0RJVUJXa2pPVFJ6bFFZeUg6dlJrUHNmLVJTX0tmdXMwczdqSHprUQ=="})
+
+         logger.info(f"Deleting model with id '{ptm.model_id}'") 
+#           try:
+#             ptm.delete()
+#           except:
+         url = "https://485ce3931f1e4b6393f3a256d96ba75e.eastus.azure.elastic-cloud.com:9243/_ml/trained_models/yashveer11__final_model_category?force=true"
+         auth = HTTPBasicAuth('apikey', 'ApiKey NzE1N0RJVUJXa2pPVFJ6bFFZeUg6dlJrUHNmLVJTX0tmdXMwczdqSHprUQ==')
+         response = req.request("DELETE", url, headers={'Host': '485ce3931f1e4b6393f3a256d96ba75e.eastus.azure.elastic-cloud.com:9243',
+                                                                     'Content-Type': 'application/json',
+                                                                     "Authorization": "ApiKey NzE1N0RJVUJXa2pPVFJ6bFFZeUg6dlJrUHNmLVJTX0tmdXMwczdqSHprUQ=="})
+         logger.info("supposdly done?")
+            
+     else:
+>>>>>>> ccbbcf07921853843ca7a299452b4d6707df944e
           logger.error(f"Trained model with id '{ptm.model_id}' already exists")
           logger.info(
               "Run the script with the '--clear-previous' flag if you want to overwrite the existing model.")
