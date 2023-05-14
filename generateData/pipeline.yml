@@ -1,0 +1,11 @@
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+type: pipeline
+display_name: Monitoring Performance
+jobs:
+  read_data:
+    type: command
+    code: generateData
+    environment: azureml:TestNew@latest
+    compute: azureml:GPU-05559-01
+    command: >-
+      python monitoring.py 
