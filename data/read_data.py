@@ -17,17 +17,11 @@ import argparse
 #     ),
 # )
 
-<<<<<<< HEAD
-
 def get_args():
     parser = argparse.ArgumentParser("read_data")
     parser.add_argument("--fetched_data", type=str, help="Path of fetched data")
     args = parser.parse_args()
-=======
-parser = argparse.ArgumentParser("read_data")
-parser.add_argument("--fetched_data", type=str, help="Path of fetched data")
-args = parser.parse_args()
->>>>>>> ccbbcf07921853843ca7a299452b4d6707df944e
+    return args
 
 def data_preparations():
     
@@ -36,12 +30,9 @@ def data_preparations():
     
     dataset1 = pd.read_csv(data)
 
-<<<<<<< HEAD
 #     dataset1.to_csv("cairs.csv")
-    get_args()
-=======
+    args = get_args()
 #     dataset1.to_csv("cairs.csv", index=False)
->>>>>>> ccbbcf07921853843ca7a299452b4d6707df944e
     dataset1.to_csv((Path(args.fetched_data) / "fetched_data.csv"), index = False)
 
 data_preparations()
