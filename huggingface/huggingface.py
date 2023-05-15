@@ -43,10 +43,12 @@ def prepare_training_datatests():
     dataset=datasets.DatasetDict({"train": train, "test": test, "validation": validation})
     return dataset
 
-def preprocess_data(examples):
+def preprocess_data(examples,labels):
     # take a batch of texts
     text = examples["CONCATENATED_TEXT"]
+
     # encode them
+    tokenizer = AutoTokenizer.from_pretrained("yashveer11/final_model_category")
     encoding = tokenizer(text, padding="max_length", truncation=True, max_length=128)
     # add labels
     labels_batch = {k: examples[k] for k in examples.keys() if k in labels}
@@ -104,7 +106,7 @@ def perform_training():
     label2id = {label: idx for idx, label in enumerate(labels)}
     tokenizer = AutoTokenizer.from_pretrained("yashveer11/final_model_category")
 
-    encoded_dataset = dataset.map(preprocess_data, batched=True, remove_columns=dataset['train'].column_names)
+    encoded_dataset = dataset.map(preprocess_data(labels), batched=True, remove_columns=dataset['train'].column_names)
 
     example = encoded_dataset['train'][0]
 
