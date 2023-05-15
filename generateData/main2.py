@@ -40,10 +40,6 @@ COMMON_WORDS = ['vehicle',
 'date',
 'contact']
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ccbbcf07921853843ca7a299452b4d6707df944e
 SAMPLE_SIZE = 1000
 CAIR_SQL_PREFIX = """select cat.I_REQ_NO,
        cat.I_KEY, 
