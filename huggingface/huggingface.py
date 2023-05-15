@@ -44,8 +44,9 @@ def prepare_training_datatests():
 
 def preprocess_data(examples):
     # take a batch of texts
-    text = examples["CONCATENATED_TEXT"]
-    labels = [label for label in examples['train'].features.keys() if label not in ['CONCATENATED_TEXT']]
+    text = examples['CONCATENATED_TEXT']
+    train_df = examples.train
+    labels = [label for label in train_df.features.keys() if label not in ['CONCATENATED_TEXT']]
     # encode them
     tokenizer = AutoTokenizer.from_pretrained("yashveer11/final_model_category")
     encoding = tokenizer(text, padding="max_length", truncation=True, max_length=128)
@@ -98,9 +99,27 @@ def compute_metrics(p: EvalPrediction):
 #     environment="azureml:TestNew@latest"
 # )
 def perform_training():
+    args = get_args()
+    filename = os.listdir(args.prepped_data)
+    dataset1 = pd.read_csv((Path(args.prepped_data) / filename[0]))
 
-    dataset = prepare_training_datatests()
-    labels = [label for label in dataset['train'].features.keys() if label not in ['CONCATENATED_TEXT']]
+    dataset1.to_csv((Path(args.status_output) / "status_output.csv"), index=False)
+
+    t1 = dataset1.shape[0]
+    t_rain = int(t1 * 80 / 100)
+    t_est = int(t1 * 15 / 100)
+    v_alid = int(t1 * 5 / 100)
+    train1 = dataset1.sample(n=t_rain)
+    test1 = dataset1.sample(n=t_est)
+    validation1 = dataset1.sample(n=v_alid)
+    train = Dataset.from_dict(train1)
+    test = Dataset.from_dict(test1)
+    validation = Dataset.from_dict(validation1)
+    dataset = datasets.DatasetDict({"train": train, "test": test, "validation": validation})
+
+    # dataset = prepare_training_datatests()
+    train_df = dataset['train']
+    labels = [label for label in train_df.features.keys() if label not in ['CONCATENATED_TEXT']]
     id2label = {idx: label for idx, label in enumerate(labels)}
     label2id = {label: idx for idx, label in enumerate(labels)}
     tokenizer = AutoTokenizer.from_pretrained("yashveer11/final_model_category")
