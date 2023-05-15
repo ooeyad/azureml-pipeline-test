@@ -105,7 +105,7 @@ def perform_training():
     label2id = {label: idx for idx, label in enumerate(labels)}
     tokenizer = AutoTokenizer.from_pretrained("yashveer11/final_model_category")
 
-    encoded_dataset = dataset.map(preprocess_data(), batched=True, remove_columns=dataset['train'].column_names)
+    encoded_dataset = dataset.map(preprocess_data, batched=True, remove_columns=dataset['train'].column_names)
 
     example = encoded_dataset['train'][0]
 
