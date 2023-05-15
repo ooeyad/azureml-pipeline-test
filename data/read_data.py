@@ -34,5 +34,5 @@ def data_preparations():
     args = get_args()
 #     dataset1.to_csv("cairs.csv", index=False)
     dataset1.to_csv((Path(args.fetched_data) / "fetched_data.csv"), index = False)
-
-data_preparations()
+if __name__ == "__main__":
+    data_preparations()
