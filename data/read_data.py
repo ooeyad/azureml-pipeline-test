@@ -27,9 +27,7 @@ def data_preparations():
     
     #data =  os.environ['DATA_SRC']
     data = "https://teststoragelogicapp0123.blob.core.windows.net/test/valid/full_cair_list_with_text_2023_2_16.csv"
-    
     dataset1 = pd.read_csv(data)
-
 #     dataset1.to_csv("cairs.csv")
     args = get_args()
 #     dataset1.to_csv("cairs.csv", index=False)
