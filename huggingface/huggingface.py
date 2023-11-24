@@ -134,7 +134,7 @@ def perform_training():
 
     encoded_dataset.set_format("torch")
 
-    access_token = "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"
+    access_token = "HFAT"
     login(access_token)
 
     model = AutoModelForSequenceClassification.from_pretrained("yashveer11/final_model_category",
